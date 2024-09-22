@@ -45,7 +45,7 @@ const DescInputScreen = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://192.168.1.8:3000/deskripsi/list/${NIS}/${transformedYear}/${semester}`,
+          `https://modern-popular-coral.ngrok-free.app/deskripsi/list/${NIS}/${transformedYear}/${semester}`,
         );
         const deskripsi = response.data.deskripsi;
         if (deskripsi) {
@@ -117,7 +117,7 @@ const DescInputScreen = () => {
 
     try {
       const response = await axios.post(
-        'http://192.168.1.8:3000/deskripsi/createorupdate',
+        'https://modern-popular-coral.ngrok-free.app/deskripsi/createorupdate',
         payload,
       );
       if (response.status === 200) {

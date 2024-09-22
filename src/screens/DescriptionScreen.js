@@ -59,7 +59,7 @@ const DescriptionScreen = () => {
   const fetchStudentName = () => {
     axios
       .get(
-        `http://192.168.1.8:3000/room/list/${classRoom}/students/${transformedYear}`,
+        `https://modern-popular-coral.ngrok-free.app/room/list/${classRoom}/students/${transformedYear}`,
       )
       .then(res => {
         let studentsData;

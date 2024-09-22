@@ -23,7 +23,7 @@ const RoomScreen = () => {
   const fetchRoomData = async (roomName, setRoomData) => {
     try {
       const response = await axios.get(
-        `http://192.168.1.8:3000/room/list/${roomName}`,
+        `https://modern-popular-coral.ngrok-free.app/room/list/${roomName}`,
       );
       const roomInfo = response.data.roomsData[0];
       const teacherName = roomInfo.roomTeacher || '-';

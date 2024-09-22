@@ -15,7 +15,7 @@ import DatePicker from 'react-native-date-picker';
 
 const PrintReportScreen = () => {
   const handlePoinMDR = () => {
-    axios.get(`http://192.168.1.8:3000/poinMDR/list`).then(
+    axios.get(`https://modern-popular-coral.ngrok-free.app/poinMDR/list`).then(
       response => {
         const poinData = response.data.poinMDR;
 
@@ -47,7 +47,7 @@ const PrintReportScreen = () => {
   };
 
   const handlePoinENG = () => {
-    axios.get(`http://192.168.1.8:3000/poinENG/list`).then(
+    axios.get(`https://modern-popular-coral.ngrok-free.app/poinENG/list`).then(
       response => {
         const poinData = response.data.poinENG;
 
@@ -95,7 +95,7 @@ const PrintReportScreen = () => {
   const handleGetDeskripsi = () => {
     axios
       .get(
-        `http://192.168.1.8:3000/deskripsi/list/${student.NIS}/${transformedYear}/${semester}`,
+        `https://modern-popular-coral.ngrok-free.app/deskripsi/list/${student.NIS}/${transformedYear}/${semester}`,
       )
       .then(response => {
         setDeskripsi(response.data.deskripsi);
@@ -108,7 +108,7 @@ const PrintReportScreen = () => {
   const handleNilaiMDR = () => {
     axios
       .get(
-        `http://192.168.1.8:3000/nilaiMDR/list/${semester}/${transformedYear}/${student.NIS}`,
+        `https://modern-popular-coral.ngrok-free.app/nilaiMDR/list/${semester}/${transformedYear}/${student.NIS}`,
       )
       .then(response => {
         const data = response.data.nilaiMDR;
@@ -135,7 +135,7 @@ const PrintReportScreen = () => {
   const handleNilaiENG = () => {
     axios
       .get(
-        `http://192.168.1.8:3000/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
+        `https://modern-popular-coral.ngrok-free.app/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
       )
       .then(response => {
         setNilaiENG(response.data.nilaiENG);
@@ -158,7 +158,7 @@ const PrintReportScreen = () => {
 
   const handlePrincipalName = () => {
     axios
-      .get(`http://192.168.1.8:3000/users/principalName`)
+      .get(`https://modern-popular-coral.ngrok-free.app/users/principalName`)
       .then(response => {
         setPrincipalName(response.data.principalNameData.name);
         setPrincipalNRGTY(response.data.principalNameData.NRGTY);
@@ -170,7 +170,7 @@ const PrintReportScreen = () => {
 
   const handleTeacherName = () => {
     axios
-      .get(`http://192.168.1.8:3000/room/${student.room}`)
+      .get(`https://modern-popular-coral.ngrok-free.app/room/${student.room}`)
       .then(response => {
         setTeacherName(response.data.teacherName);
         setTeacherNRGTY(response.data.NRGTY);

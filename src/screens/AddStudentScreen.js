@@ -55,7 +55,10 @@ const AddStudentScreen = () => {
     };
 
     axios
-      .post(`http://192.168.1.8:3000/${gradeText}/create`, reqData)
+      .post(
+        `https://modern-popular-coral.ngrok-free.app/${gradeText}/create`,
+        reqData,
+      )
       .then(res => {
         ToastAndroid.show('Student added successfully', ToastAndroid.SHORT);
         navigation.goBack();

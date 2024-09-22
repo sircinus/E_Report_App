@@ -68,7 +68,7 @@ const AccountScreen = ({route}) => {
 
       // Make the request to verify the old password and update to the new one
       const response = await axios.put(
-        'http://192.168.1.8:3000/users/updateTeacherPassword',
+        'https://modern-popular-coral.ngrok-free.app/users/updateTeacherPassword',
         {
           userID: storedUserID,
           password: password, // Use the current password inputted by the user

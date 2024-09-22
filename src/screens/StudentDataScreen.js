@@ -16,7 +16,9 @@ const StudentDataScreen = ({route}) => {
 
   const fetchStudents = () => {
     axios
-      .get(`http://192.168.1.8:3000/${gradeText}/list/${transformedYear}`)
+      .get(
+        `https://modern-popular-coral.ngrok-free.app/${gradeText}/list/${transformedYear}`,
+      )
       .then(res => {
         let studentsData;
 

@@ -17,7 +17,7 @@ const MandarinScreen = () => {
 
   const handleGetData = () => {
     axios
-      .get('http://192.168.1.8:3000/poinMDR/list')
+      .get('https://modern-popular-coral.ngrok-free.app/poinMDR/list')
       .then(response => {
         setData(response.data.poinMDR);
         console.log(response.data.poinMDR);
@@ -41,10 +41,13 @@ const MandarinScreen = () => {
   // Save the updated data to the server
   const handleUpdate = item => {
     axios
-      .put(`http://192.168.1.8:3000/poinMDR/update/${item.kodePoin}`, {
-        namaPoin: item.namaPoin,
-        keteranganPoin: item.keteranganPoin,
-      })
+      .put(
+        `https://modern-popular-coral.ngrok-free.app/poinMDR/update/${item.kodePoin}`,
+        {
+          namaPoin: item.namaPoin,
+          keteranganPoin: item.keteranganPoin,
+        },
+      )
       .then(response => {
         console.log('Update successful:', response.data);
         ToastAndroid.show('Data Berhasil Disimpan', ToastAndroid.SHORT);

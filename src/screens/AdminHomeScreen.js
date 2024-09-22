@@ -33,7 +33,7 @@ const HomeScreen = props => {
   const fetchUserData = async userID => {
     try {
       const response = await axios.get(
-        `http://192.168.1.8:3000/users/${userID}`,
+        `https://modern-popular-coral.ngrok-free.app/users/${userID}`,
       );
 
       setUserName(response.data.users.name);

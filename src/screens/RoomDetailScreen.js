@@ -7,7 +7,7 @@ import axios from 'axios';
 const RoomDetailScreen = ({route}) => {
   const handleUpdateRoom = () => {
     axios
-      .put('http://192.168.1.8:3000/room/updateRoom', {
+      .put('https://modern-popular-coral.ngrok-free.app/room/updateRoom', {
         roomName: room,
         roomTeacher: selectedTeacher,
         status: selectedStatus,
@@ -34,7 +34,7 @@ const RoomDetailScreen = ({route}) => {
 
   useEffect(() => {
     axios
-      .get('http://192.168.1.8:3000/users/teacherList')
+      .get('https://modern-popular-coral.ngrok-free.app/users/teacherList')
       .then(response => {
         const options = response.data.teacherNameData.map(item => ({
           key: item.name,

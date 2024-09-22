@@ -43,13 +43,16 @@ const TeacherDetailScreen = ({route}) => {
       ToastAndroid.show('Please fill in necessary fields', ToastAndroid.SHORT);
     } else {
       axios
-        .put('http://192.168.1.8:3000/users/updateTeacherDetail', {
-          userID,
-          name,
-          role,
-          NRGTY,
-          grade,
-        })
+        .put(
+          'https://modern-popular-coral.ngrok-free.app/users/updateTeacherDetail',
+          {
+            userID,
+            name,
+            role,
+            NRGTY,
+            grade,
+          },
+        )
         .then(res => {
           console.log(res.data);
           ToastAndroid.show('Account Updated Successfully', ToastAndroid.SHORT);
@@ -71,9 +74,12 @@ const TeacherDetailScreen = ({route}) => {
           text: 'Delete',
           onPress: () => {
             axios
-              .delete('http://192.168.1.8:3000/users/deleteTeacher', {
-                data: {userID},
-              })
+              .delete(
+                'https://modern-popular-coral.ngrok-free.app/users/deleteTeacher',
+                {
+                  data: {userID},
+                },
+              )
               .then(res => {
                 console.log(res.data.message);
                 ToastAndroid.show(
@@ -106,9 +112,12 @@ const TeacherDetailScreen = ({route}) => {
           text: 'Reset',
           onPress: newPassword => {
             axios
-              .put('http://192.168.1.8:3000/users/adminResetPassword', {
-                userID,
-              })
+              .put(
+                'https://modern-popular-coral.ngrok-free.app/users/adminResetPassword',
+                {
+                  userID,
+                },
+              )
               .then(res => {
                 ToastAndroid.show(
                   'Password Reset Successfully',

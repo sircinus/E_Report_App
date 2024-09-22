@@ -17,7 +17,7 @@ const EnglishScreen = () => {
 
   const handleGetData = () => {
     axios
-      .get('http://192.168.1.8:3000/poinENG/list')
+      .get('https://modern-popular-coral.ngrok-free.app/poinENG/list')
       .then(response => {
         setData(response.data.poinENG);
         console.log(response.data.poinENG);
@@ -41,10 +41,13 @@ const EnglishScreen = () => {
   // Save the updated data to the server
   const handleUpdate = item => {
     axios
-      .put(`http://192.168.1.8:3000/poinENG/update/${item.kodePoin}`, {
-        namaPoin: item.namaPoin,
-        keteranganPoin: item.keteranganPoin,
-      })
+      .put(
+        `https://modern-popular-coral.ngrok-free.app/poinENG/update/${item.kodePoin}`,
+        {
+          namaPoin: item.namaPoin,
+          keteranganPoin: item.keteranganPoin,
+        },
+      )
       .then(response => {
         console.log('Update successful:', response.data);
         ToastAndroid.show('Data Berhasil Disimpan', ToastAndroid.SHORT);

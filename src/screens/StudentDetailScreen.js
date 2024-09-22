@@ -49,7 +49,7 @@ const StudentDetailScreen = ({route}) => {
     }
 
     axios
-      .put(`http://192.168.1.8:3000/${gradeText}/update`, {
+      .put(`https://modern-popular-coral.ngrok-free.app/${gradeText}/update`, {
         name,
         NIS,
         birthdate,
@@ -78,9 +78,12 @@ const StudentDetailScreen = ({route}) => {
           text: 'Delete',
           onPress: () => {
             axios
-              .delete(`http://192.168.1.8:3000/${gradeText}/delete`, {
-                data: {NIS},
-              })
+              .delete(
+                `https://modern-popular-coral.ngrok-free.app/${gradeText}/delete`,
+                {
+                  data: {NIS},
+                },
+              )
               .then(res => {
                 ToastAndroid.show(
                   'Account Deleted Successfully',

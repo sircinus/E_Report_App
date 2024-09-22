@@ -23,7 +23,9 @@ const MapelGradeScreen = () => {
   // Fetch student names for Group A
   const getStudentNameA = () => {
     axios
-      .get(`http://192.168.1.8:3000/gradeA/list/${transformedYear}`)
+      .get(
+        `https://modern-popular-coral.ngrok-free.app/gradeA/list/${transformedYear}`,
+      )
       .then(res => {
         setStudentNameA(res.data.gradeA);
       })
@@ -35,7 +37,9 @@ const MapelGradeScreen = () => {
   // Fetch student names for Group B
   const getStudentNameB = () => {
     axios
-      .get(`http://192.168.1.8:3000/gradeB/list/${transformedYear}`)
+      .get(
+        `https://modern-popular-coral.ngrok-free.app/gradeB/list/${transformedYear}`,
+      )
       .then(res => {
         setStudentNameB(res.data.gradeB);
       })
@@ -46,7 +50,7 @@ const MapelGradeScreen = () => {
 
   const getPoinData = () => {
     axios
-      .get(`http://192.168.1.8:3000/${poinMapel}/list`)
+      .get(`https://modern-popular-coral.ngrok-free.app/${poinMapel}/list`)
       .then(res => {
         setPoinData(res.data[`${poinMapel}`]);
       })
@@ -59,7 +63,7 @@ const MapelGradeScreen = () => {
   const getScores = () => {
     axios
       .get(
-        `http://192.168.1.8:3000/${nilaiMapel}/list/${semester}/${transformedYear}`,
+        `https://modern-popular-coral.ngrok-free.app/${nilaiMapel}/list/${semester}/${transformedYear}`,
       )
       .then(res => {
         const scores = res.data[`${nilaiMapel}`];
@@ -173,7 +177,7 @@ const MapelGradeScreen = () => {
 
       savePromises.push(
         axios.post(
-          `http://192.168.1.8:3000/${nilaiMapel}/createorupdate`,
+          `https://modern-popular-coral.ngrok-free.app/${nilaiMapel}/createorupdate`,
           studentScoresToSave,
         ),
       );

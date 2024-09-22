@@ -33,7 +33,7 @@ const AddTeacherScreen = () => {
       ToastAndroid.show('Please fill in necessary fields', ToastAndroid.SHORT);
     } else {
       axios
-        .post('http://192.168.1.8:3000/users/register', {
+        .post('https://modern-popular-coral.ngrok-free.app/users/register', {
           userID,
           name,
           role,

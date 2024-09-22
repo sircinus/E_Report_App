@@ -18,7 +18,7 @@ const TeacherDataScreen = () => {
 
   const fetchUsers = () => {
     axios
-      .get('http://192.168.1.8:3000/users/list')
+      .get('https://modern-popular-coral.ngrok-free.app/users/list')
       .then(res => {
         const sortedTeachers = res.data.users.sort((a, b) => {
           const roleOrder = {

@@ -14,11 +14,13 @@ const HomeScreen = props => {
   const [classRoom, setClassRoom] = useState([]);
 
   const getClassRoom = () => {
-    axios.get(`http://192.168.1.8:3000/room/${userID}`).then(response => {
-      const {data} = response;
+    axios
+      .get(`https://modern-popular-coral.ngrok-free.app/room/${userID}`)
+      .then(response => {
+        const {data} = response;
 
-      setClassRoom(data.room);
-    });
+        setClassRoom(data.room);
+      });
   };
 
   useEffect(() => {
