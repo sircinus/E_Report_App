@@ -120,9 +120,7 @@ const DescriptionScreen = () => {
         </ScrollView>
       );
     } else {
-      return (
-        <Text style={styles.noStudentText}>Tidak Tersedia Peserta Didik</Text>
-      );
+      return <Text style={styles.noStudentText}>Kelas Tidak Aktif</Text>;
     }
   };
   return (
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
     width: '45%',
     borderRadius: 5,
     alignItems: 'center',
-    backgroundColor: '#7C8083',
+    backgroundColor: '#ddd',
   },
   activeButton: {
     backgroundColor: '#008000',
@@ -216,7 +214,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     textAlign: 'center',
     fontFamily: 'Montserrat-SemiBold',
-    color: '#f2bf52',
+    color: 'black',
     fontSize: 16,
   },
   studentList: {

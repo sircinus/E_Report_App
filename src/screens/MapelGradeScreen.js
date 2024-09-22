@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    backgroundColor: '#7C8083',
+    backgroundColor: '#ddd',
   },
   activeButton: {
     backgroundColor: '#008000',
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   buttonTextFilter: {
     textAlign: 'center',
     fontFamily: 'Montserrat-SemiBold',
-    color: '#f2bf52',
+    color: 'black',
     fontSize: 16,
     paddingHorizontal: 10,
   },
