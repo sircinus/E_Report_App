@@ -39,7 +39,11 @@ const HomeScreen = props => {
         <FontAwesome name="group" style={styles.buttonIcon} color="black" />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.buttonContainer}>
+      <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() =>
+          navigation.navigate('YearScreen', {screenName: 'ReportScreen'})
+        }>
         <Text style={styles.buttonText}>
           Cetak Laporan Perkembangan Peserta Didik
         </Text>

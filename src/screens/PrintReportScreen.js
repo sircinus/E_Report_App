@@ -1,28 +1,96 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {logoBase64} from '../assets/images/base64images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
+import DatePicker from 'react-native-date-picker';
 
 const PrintReportScreen = () => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const [deskripsi, setDeskripsi] = useState([]);
+  const handlePoinMDR = () => {
+    axios.get(`http://192.168.1.8:3000/poinMDR/list`).then(
+      response => {
+        const poinData = response.data.poinMDR;
 
-  const {year, student, semester, transformedYear} = route.params;
-  console.log('tahun:', year);
-  console.log('student name:', deskripsi.name);
-  console.log('student NIS: ', deskripsi.NIS);
-  console.log('semester:', semester);
-  console.log('agama dan budi pekerti: ', deskripsi.textAgama);
-  console.log('jati diri: ', deskripsi.textJatiDiri);
-  console.log('literasi: ', deskripsi.textLiterasi);
-  console.log('sakit: ', deskripsi.sickDays);
-  console.log('izin: ', deskripsi.permissionDays);
-  console.log('alpha: ', deskripsi.alphaDays);
-  console.log('tinggi badan: ', deskripsi.height);
-  console.log('berat badan: ', deskripsi.weight);
+        if (poinData.length > 0) {
+          setPoinMDR1(poinData[0].namaPoin);
+          setKetPoinMDR1(poinData[0].keteranganPoin);
+        }
+        if (poinData.length > 1) {
+          setPoinMDR2(poinData[1].namaPoin);
+          setKetPoinMDR2(poinData[1].keteranganPoin);
+        }
+        if (poinData.length > 2) {
+          setPoinMDR3(poinData[2].namaPoin);
+          setKetPoinMDR3(poinData[2].keteranganPoin);
+        }
+        if (poinData.length > 3) {
+          setPoinMDR4(poinData[3].namaPoin);
+          setKetPoinMDR4(poinData[3].keteranganPoin);
+        }
+        if (poinData.length > 4) {
+          setPoinMDR5(poinData[4].namaPoin);
+          setKetPoinMDR5(poinData[4].keteranganPoin);
+        }
+      },
+      error => {
+        console.error(error);
+      },
+    );
+  };
+
+  const handlePoinENG = () => {
+    axios.get(`http://192.168.1.8:3000/poinENG/list`).then(
+      response => {
+        const poinData = response.data.poinENG;
+
+        if (poinData.length > 0) {
+          setPoinENG1(poinData[0].namaPoin);
+          setKetPoinENG1(poinData[0].keteranganPoin);
+        }
+        if (poinData.length > 1) {
+          setPoinENG2(poinData[1].namaPoin);
+          setKetPoinENG2(poinData[1].keteranganPoin);
+        }
+        if (poinData.length > 2) {
+          setPoinENG3(poinData[2].namaPoin);
+          setKetPoinENG3(poinData[2].keteranganPoin);
+        }
+        if (poinData.length > 3) {
+          setPoinENG4(poinData[3].namaPoin);
+          setKetPoinENG4(poinData[3].keteranganPoin);
+        }
+        if (poinData.length > 4) {
+          setPoinENG5(poinData[4].namaPoin);
+          setKetPoinENG5(poinData[4].keteranganPoin);
+        }
+      },
+      error => {
+        console.error(error);
+      },
+    );
+  };
+
+  const calculateAge = birthdate => {
+    const birthDate = new Date(birthdate);
+    const now = new Date();
+    let years = now.getFullYear() - birthDate.getFullYear();
+    let months = now.getMonth() - birthDate.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return `${years} TAHUN ${months} BULAN`;
+  };
 
   const handleGetDeskripsi = () => {
     axios
@@ -37,9 +105,153 @@ const PrintReportScreen = () => {
       });
   };
 
+  const handleNilaiMDR = () => {
+    axios
+      .get(
+        `http://192.168.1.8:3000/nilaiMDR/list/${semester}/${transformedYear}/${student.NIS}`,
+      )
+      .then(response => {
+        const data = response.data.nilaiMDR;
+
+        // Assuming data is an array, and you want to use the first item
+        if (data.length > 0) {
+          const firstRecord = data[0];
+
+          // Set individual nilai states
+          setNilaiMDR1(firstRecord.nilai1);
+          setNilaiMDR2(firstRecord.nilai2);
+          setNilaiMDR3(firstRecord.nilai3);
+          setNilaiMDR4(firstRecord.nilai4);
+          setNilaiMDR5(firstRecord.nilai5);
+        }
+
+        setNilaiMDR(data); // Store the entire response in nilaiMDR as before
+      })
+      .catch(error => {
+        console.error('Belum Ada Nilai Bahasa Mandarin');
+      });
+  };
+
+  const handleNilaiENG = () => {
+    axios
+      .get(
+        `http://192.168.1.8:3000/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
+      )
+      .then(response => {
+        setNilaiENG(response.data.nilaiENG);
+
+        if (data.length > 0) {
+          const firstRecord = data[0];
+
+          // Set individual nilai states
+          setNilaiENG1(firstRecord.nilai1);
+          setNilaiENG2(firstRecord.nilai2);
+          setNilaiENG3(firstRecord.nilai3);
+          setNilaiENG4(firstRecord.nilai4);
+          setNilaiENG5(firstRecord.nilai5);
+        }
+      })
+      .catch(error => {
+        console.error('Belum Ada Nilai Bahasa Inggris');
+      });
+  };
+
+  const handlePrincipalName = () => {
+    axios
+      .get(`http://192.168.1.8:3000/users/principalName`)
+      .then(response => {
+        setPrincipalName(response.data.principalNameData.name);
+        setPrincipalNRGTY(response.data.principalNameData.NRGTY);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  const handleTeacherName = () => {
+    axios
+      .get(`http://192.168.1.8:3000/room/${student.room}`)
+      .then(response => {
+        setTeacherName(response.data.teacherName);
+        setTeacherNRGTY(response.data.NRGTY);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   useEffect(() => {
     handleGetDeskripsi();
+    handleNilaiMDR();
+    handleNilaiENG();
+    handlePoinMDR();
+    handlePoinENG();
+    handlePrincipalName();
+    handleTeacherName();
   }, []);
+
+  const navigation = useNavigation();
+  const route = useRoute();
+  const {year, student, semester, transformedYear} = route.params;
+  const kelompokUsia = student.gradeType == 'B' ? '5-6 TAHUN' : '4-5 TAHUN';
+  const ageText = calculateAge(student.birthdate);
+  const [principalName, setPrincipalName] = useState('');
+  const [principalNRGTY, setPrincipalNRGTY] = useState('');
+  const [teacherName, setTeacherName] = useState('');
+  const [teacherNRGTY, setTeacherNRGTY] = useState('');
+  const [date, setDate] = useState(new Date());
+
+  const formattedDate = date.toLocaleDateString('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }); // Directly format the date without using additional state
+
+  const [open, setOpen] = useState(false);
+
+  const [deskripsi, setDeskripsi] = useState([]);
+  const [nilaiMDR, setNilaiMDR] = useState([]);
+  const [nilaiMDR1, setNilaiMDR1] = useState('');
+  const [nilaiMDR2, setNilaiMDR2] = useState('');
+  const [nilaiMDR3, setNilaiMDR3] = useState('');
+  const [nilaiMDR4, setNilaiMDR4] = useState('');
+  const [nilaiMDR5, setNilaiMDR5] = useState('');
+
+  const [nilaiENG, setNilaiENG] = useState([]);
+  const [nilaiENG1, setNilaiENG1] = useState('');
+  const [nilaiENG2, setNilaiENG2] = useState('');
+  const [nilaiENG3, setNilaiENG3] = useState('');
+  const [nilaiENG4, setNilaiENG4] = useState('');
+  const [nilaiENG5, setNilaiENG5] = useState('');
+
+  const [poinMDR, setPoinMDR] = useState([]);
+  const [poinMDR1, setPoinMDR1] = useState('');
+  const [poinMDR2, setPoinMDR2] = useState('');
+  const [poinMDR3, setPoinMDR3] = useState('');
+  const [poinMDR4, setPoinMDR4] = useState('');
+  const [poinMDR5, setPoinMDR5] = useState('');
+
+  const [poinENG, setPoinENG] = useState([]);
+  const [poinENG1, setPoinENG1] = useState('');
+  const [poinENG2, setPoinENG2] = useState('');
+  const [poinENG3, setPoinENG3] = useState('');
+  const [poinENG4, setPoinENG4] = useState('');
+  const [poinENG5, setPoinENG5] = useState('');
+
+  const [ketPoinMDR, setKetPoinMDR] = useState([]);
+  const [ketPoinMDR1, setKetPoinMDR1] = useState('');
+  const [ketPoinMDR2, setKetPoinMDR2] = useState('');
+  const [ketPoinMDR3, setKetPoinMDR3] = useState('');
+  const [ketPoinMDR4, setKetPoinMDR4] = useState('');
+  const [ketPoinMDR5, setKetPoinMDR5] = useState('');
+
+  const [ketPoinENG, setKetPoinENG] = useState([]);
+  const [ketPoinENG1, setKetPoinENG1] = useState('');
+  const [ketPoinENG2, setKetPoinENG2] = useState('');
+  const [ketPoinENG3, setKetPoinENG3] = useState('');
+  const [ketPoinENG4, setKetPoinENG4] = useState('');
+  const [ketPoinENG5, setKetPoinENG5] = useState('');
+
   // Function to generate PDF
   const createPDF = async () => {
     const htmlContent = `
@@ -428,7 +640,7 @@ const PrintReportScreen = () => {
             <h3 class="headerText">
                 LAPORAN PERKEMBANGAN PESERTA DIDIK
             </h3>
-            <h3 class="headerText">KELOMPOK USIA 5 - 6 TAHUN</h3>
+            <h3 class="headerText">KELOMPOK USIA ${kelompokUsia}</h3>
             <h3 class="headerText">
                 TAHUN AJARAN ${year}
             </h3>
@@ -439,7 +651,7 @@ const PrintReportScreen = () => {
                     <td class="identitasLeftSubText">NAMA ANAK</td>
                     <td>: <b>${student.name}</b></td>
                     <td class="identitasRightSubText">USIA</td>
-                    <td class="identitasRightText">: 6 TAHUN 1 BULAN</td>
+                    <td class="identitasRightText">: ${ageText}</td>
                 </tr>
                 <tr>
                     <td class="identitasLeftSubText">NOMOR INDUK</td>
@@ -493,21 +705,21 @@ const PrintReportScreen = () => {
 
         <div class="descriptionBox2">
             <div>
-                <p class="descriptionTitle">${deskripsi.textJatiDiri}</p>
+                <p class="descriptionTitle">JATI DIRI</p>
             </div>
         </div>
         <div class="jdContainer">
             <p class="descriptionText">
-                (Tidak Lebih Dari 250 Kata)
+            ${deskripsi.textJatiDiri}
             </p>
         </div>
         <div class="descriptionBox3">
             <div>
-                <p class="descriptionTitle">${deskripsi.textLiterasi}</p>
+                <p class="descriptionTitle">DASAR LITERASI DAN STEAM</p>
             </div>
         </div>
         <div class="steamContainer">
-<p class="descriptionText">(Tidak Lebih Dari 250 Kata)</p>
+<p class="descriptionText">${deskripsi.textLiterasi}</p>
         </div>
     </div>
 
@@ -529,29 +741,29 @@ const PrintReportScreen = () => {
                 <th>HASIL PENILAIAN</th>
                 <tr>
                     <td>1</td>
-                    <td>听力 & 问答 <br>(Mendengar & Menjawab)</td>
-                    <td>BSH</td>
+                    <td>${poinMDR1}<br>(${ketPoinMDR1})</td>
+                    <td>${nilaiMDR1}</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td> 搭配单词 <br>(Mencocokkan Kosakata dengan Gambar)</td>
-                    <td>BSH</td>
+                    <td>${poinMDR2} <br>(${ketPoinMDR2})</td>
+                    <td>${nilaiMDR2}</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td> 数学 <br>(Angka & Menghitung)</td>
-                    <td>BSH</td>
+                    <td> ${poinMDR3}<br>(${ketPoinMDR3})</td>
+                    <td>${nilaiMDR3}</td>
                 </tr>
               
                 <tr>
                     <td>4</td>
-                    <td> 口语 <br>(Lisan)</td>
-                    <td>BSH</td>
+                    <td>${poinMDR4}<br>(${ketPoinMDR4})</td>
+                    <td>${nilaiMDR4}</td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td> 笔画 <br>(Goresan)</td>
-                    <td>BSH</td>
+                    <td> ${poinMDR5} <br>(${ketPoinMDR5})</td>
+                    <td>${nilaiMDR5}</td>
                 </tr>
             </table>
         </div>
@@ -562,29 +774,29 @@ const PrintReportScreen = () => {
                 <th>HASIL PENILAIAN</th>
                 <tr>
                     <td>1</td>
-                    <td>Listening and Focus on the Lessons <br>(Mendengarkan & Fokus pada Pembelajaran)</td>
-                    <td>BSH</td>
+                    <td>${poinENG1} <br>(${ketPoinENG1})</td>
+                    <td>${nilaiENG1}</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td> Writing Letters & Words <br>(Menulis Huruf & Kata)</td>
-                    <td>BSH</td>
+                    <td>${poinENG2} <br>(${ketPoinENG2})</td>
+                    <td>${nilaiENG2}</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td> Speaking & Following What the Teacher Say <br>(Berbicara dan Mengikuti Apa yang Diucapkan Guru)</td>
-                    <td>BSH</td>
+                    <td>${poinENG3}<br>(${ketPoinENG3})</td>
+                    <td>${nilaiENG3}</td>
                 </tr>
               
                 <tr>
                     <td>4</td>
-                    <td> Answering Questions <br>(Menjawab Pertanyaan)</td>
-                    <td>BSH</td>
+                    <td>${poinENG4} <br>(${ketPoinENG4})</td>
+                    <td>${nilaiENG4}</td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td> Determine the Right & Wrong Answers <br>(Menentukan Jawaban yang Benar & Salah)</td>
-                    <td>BSH</td>
+                    <td> ${poinENG5} <br>(${ketPoinENG5})</td>
+                    <td>${nilaiENG5}</td>
                 </tr>
             </table>
         </div>
@@ -613,14 +825,14 @@ const PrintReportScreen = () => {
             <div class="signLeftContainer">
                 <p class="leftText">Mengetahui,</p>
                 <p class="signBoldText">Kepala TK Toan Hwa</p>
-                <p class="boldNameText">WAHYU MURNI SARI</p>
-                <p class="NRGTYText">NRGTY 005.072015.19911702</p>
+                <p class="boldNameText">${principalName}</p>
+                <p class="NRGTYText">NRGTY ${principalNRGTY}</p>
             </div>
           <div class="signRightContainer">
-            <p class="signDateText">Tanjungpinang, 8 September 2024</p>
-            <p class="signBoldText">Guru Kelas TK-A SUNSHINE</p>
-            <p class="boldNameText">FITRIANTI, S.Pd.</p>
-            <p class="NRGTYText">NRGTY 016.07.2016.19891505</p>
+            <p class="signDateText">Tanjungpinang, ${formattedDate}</p>
+            <p class="signBoldText">Guru Kelas TK ${student.gradeType} ${student.room}</p>
+            <p class="boldNameText">${teacherName}</p>
+            <p class="NRGTYText">NRGTY ${teacherNRGTY}</p>
           </div>
            
 
@@ -687,7 +899,7 @@ const PrintReportScreen = () => {
     try {
       const options = {
         html: htmlContent, // Your HTML content
-        fileName: 'report',
+        fileName: `${student.name}`, // File name
         directory: 'Documents', // Folder where the PDF will be saved
       };
 
@@ -702,10 +914,42 @@ const PrintReportScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>Print Report Screen</Text>
-      <TouchableOpacity style={styles.button} onPress={createPDF}>
-        <Text style={styles.buttonText}>Generate PDF</Text>
-      </TouchableOpacity>
+      <ScrollView>
+        <DatePicker
+          modal
+          open={open}
+          date={date}
+          mode="date"
+          title="Pilih Tanggal Lahir"
+          onConfirm={date => {
+            setOpen(false);
+            setDate(date);
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+        />
+        <View style={styles.textContainer}>
+          <Text style={styles.text}>
+            Tahun Pelajaran: {year} | Semester: {semester}
+          </Text>
+          <Text style={styles.text}>NIS: {student.NIS}</Text>
+          <Text style={styles.text}>Nama: {student.name}</Text>
+          <Text style={styles.text}>
+            Tanggal Pembagian LPA: {formattedDate}
+          </Text>
+        </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => setOpen(true)} // Set open to true to show the date picker
+        >
+          <Text style={styles.buttonText}>Pilih Tanggal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={createPDF}>
+          <Text style={styles.buttonText}>Cetak Laporan PDF</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 };
@@ -713,18 +957,26 @@ const PrintReportScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#fefce5',
+    padding: 10,
   },
-  header: {
-    fontSize: 24,
+  text: {
+    fontSize: 14,
     marginBottom: 20,
+    color: 'black',
+    fontFamily: 'Montserrat-Bold',
+    textAlign: 'center',
+  },
+  textContainer: {
+    alignItems: 'center',
   },
   button: {
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    alignItems: 'center',
+    marginHorizontal: 50,
+    marginVertical: 10,
   },
   buttonText: {
     color: 'white',
