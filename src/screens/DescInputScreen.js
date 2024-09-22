@@ -79,8 +79,8 @@ const DescInputScreen = () => {
   const pickImage = async setImage => {
     try {
       const image = await ImagePicker.openPicker({
-        width: 81,
-        height: 124,
+        width: 450,
+        height: 800,
         cropping: true,
         includeBase64: true,
       });

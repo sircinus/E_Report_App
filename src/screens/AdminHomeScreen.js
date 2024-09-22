@@ -124,9 +124,13 @@ const HomeScreen = props => {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() =>
+            navigation.navigate('YearScreen', {screenName: 'ReportScreen'})
+          }>
           <Text style={styles.buttonText}>
-            Laporan Perkembangan Peserta Didik
+            Cetak Laporan Perkembangan Peserta Didik
           </Text>
           <FontAwesome
             name="file-pdf-o"

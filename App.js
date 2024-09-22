@@ -28,6 +28,8 @@ import MapelGradeScreen from './src/screens/MapelGradeScreen';
 import SemesterScreen from './src/screens/SemesterScreen';
 import DescriptionScreen from './src/screens/DescriptionScreen';
 import DescInputScreen from './src/screens/DescInputScreen';
+import PrintReportScreen from './src/screens/PrintReportScreen';
+import ReportScreen from './src/screens/ReportScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -318,6 +320,28 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Isi Deskripsi',
+            headerStyle: {
+              backgroundColor: '#f2bf52',
+            },
+          }}
+        />
+        <Stack.Screen
+          name="ReportScreen"
+          component={ReportScreen}
+          options={{
+            headerShown: true,
+            headerTitle: 'Pilih Laporan',
+            headerStyle: {
+              backgroundColor: '#f2bf52',
+            },
+          }}
+        />
+        <Stack.Screen
+          name="PrintReportScreen"
+          component={PrintReportScreen}
+          options={{
+            headerShown: true,
+            headerTitle: 'Cetak LPA',
             headerStyle: {
               backgroundColor: '#f2bf52',
             },

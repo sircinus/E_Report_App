@@ -73,7 +73,7 @@ const HomeScreen = props => {
 
       <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttonText}>
-          Laporan Perkembangan Peserta Didik
+          Cetak Laporan Perkembangan Peserta Didik
         </Text>
         <FontAwesome
           name="file-pdf-o"

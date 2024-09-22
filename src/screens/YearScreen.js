@@ -46,7 +46,8 @@ const YearScreen = ({route}) => {
     // Check if the target screen is related to grading
     if (
       screenName === 'MapelGradeScreen' ||
-      screenName === 'DescriptionScreen'
+      screenName === 'DescriptionScreen' ||
+      screenName === 'ReportScreen'
     ) {
       // Navigate to SemesterScreen for grading
       navigation.navigate('SemesterScreen', {
