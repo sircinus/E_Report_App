@@ -962,13 +962,17 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    marginBottom: 20,
+    marginVertical: 5,
     color: 'black',
     fontFamily: 'Montserrat-Bold',
     textAlign: 'center',
   },
   textContainer: {
     alignItems: 'center',
+    backgroundColor: 'white',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
   },
   button: {
     backgroundColor: 'blue',
