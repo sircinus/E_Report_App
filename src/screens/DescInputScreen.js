@@ -45,7 +45,7 @@ const DescInputScreen = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://modern-popular-coral.ngrok-free.app/deskripsi/list/${NIS}/${transformedYear}/${semester}`,
+          `https://lpa-tktoanhwa-api.loca.lt/deskripsi/list/${NIS}/${transformedYear}/${semester}`,
         );
         const deskripsi = response.data.deskripsi;
         if (deskripsi) {
@@ -117,7 +117,7 @@ const DescInputScreen = () => {
 
     try {
       const response = await axios.post(
-        'https://modern-popular-coral.ngrok-free.app/deskripsi/createorupdate',
+        'https://lpa-tktoanhwa-api.loca.lt/deskripsi/createorupdate',
         payload,
       );
       if (response.status === 200) {

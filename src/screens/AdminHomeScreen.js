@@ -33,7 +33,7 @@ const HomeScreen = props => {
   const fetchUserData = async userID => {
     try {
       const response = await axios.get(
-        `https://modern-popular-coral.ngrok-free.app/users/${userID}`,
+        `https://lpa-tktoanhwa-api.loca.lt/users/${userID}`,
       );
 
       setUserName(response.data.users.name);

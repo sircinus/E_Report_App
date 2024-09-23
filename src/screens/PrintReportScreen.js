@@ -16,7 +16,7 @@ import DatePicker from 'react-native-date-picker';
 
 const PrintReportScreen = () => {
   const handlePoinMDR = () => {
-    axios.get(`https://modern-popular-coral.ngrok-free.app/poinMDR/list`).then(
+    axios.get(`https://lpa-tktoanhwa-api.loca.lt/poinMDR/list`).then(
       response => {
         const poinData = response.data.poinMDR;
 
@@ -48,7 +48,7 @@ const PrintReportScreen = () => {
   };
 
   const handlePoinENG = () => {
-    axios.get(`https://modern-popular-coral.ngrok-free.app/poinENG/list`).then(
+    axios.get(`https://lpa-tktoanhwa-api.loca.lt/poinENG/list`).then(
       response => {
         const poinData = response.data.poinENG;
 
@@ -96,7 +96,7 @@ const PrintReportScreen = () => {
   const handleGetDeskripsi = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/deskripsi/list/${student.NIS}/${transformedYear}/${semester}`,
+        `https://lpa-tktoanhwa-api.loca.lt/deskripsi/list/${student.NIS}/${transformedYear}/${semester}`,
       )
       .then(response => {
         setDeskripsi(response.data.deskripsi);
@@ -112,7 +112,7 @@ const PrintReportScreen = () => {
   const handleNilaiMDR = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/nilaiMDR/list/${semester}/${transformedYear}/${student.NIS}`,
+        `https://lpa-tktoanhwa-api.loca.lt/nilaiMDR/list/${semester}/${transformedYear}/${student.NIS}`,
       )
       .then(response => {
         const data = response.data.nilaiMDR;
@@ -139,7 +139,7 @@ const PrintReportScreen = () => {
   const handleNilaiENG = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
+        `https://lpa-tktoanhwa-api.loca.lt/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
       )
       .then(response => {
         setNilaiENG(response.data.nilaiENG);
@@ -162,7 +162,7 @@ const PrintReportScreen = () => {
 
   const handlePrincipalName = () => {
     axios
-      .get(`https://modern-popular-coral.ngrok-free.app/users/principalName`)
+      .get(`https://lpa-tktoanhwa-api.loca.lt/users/principalName`)
       .then(response => {
         setPrincipalName(response.data.principalNameData.name);
         setPrincipalNRGTY(response.data.principalNameData.NRGTY);
@@ -177,7 +177,7 @@ const PrintReportScreen = () => {
 
   const handleTeacherName = () => {
     axios
-      .get(`https://modern-popular-coral.ngrok-free.app/room/${student.room}`)
+      .get(`https://lpa-tktoanhwa-api.loca.lt/room/${student.room}`)
       .then(response => {
         setTeacherName(response.data.teacherName);
         setTeacherNRGTY(response.data.NRGTY);

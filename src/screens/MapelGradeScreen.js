@@ -23,9 +23,7 @@ const MapelGradeScreen = () => {
   // Fetch student names for Group A
   const getStudentNameA = () => {
     axios
-      .get(
-        `https://modern-popular-coral.ngrok-free.app/gradeA/list/${transformedYear}`,
-      )
+      .get(`https://lpa-tktoanhwa-api.loca.lt/gradeA/list/${transformedYear}`)
       .then(res => {
         setStudentNameA(res.data.gradeA);
       })
@@ -37,9 +35,7 @@ const MapelGradeScreen = () => {
   // Fetch student names for Group B
   const getStudentNameB = () => {
     axios
-      .get(
-        `https://modern-popular-coral.ngrok-free.app/gradeB/list/${transformedYear}`,
-      )
+      .get(`https://lpa-tktoanhwa-api.loca.lt/gradeB/list/${transformedYear}`)
       .then(res => {
         setStudentNameB(res.data.gradeB);
       })
@@ -50,7 +46,7 @@ const MapelGradeScreen = () => {
 
   const getPoinData = () => {
     axios
-      .get(`https://modern-popular-coral.ngrok-free.app/${poinMapel}/list`)
+      .get(`https://lpa-tktoanhwa-api.loca.lt/${poinMapel}/list`)
       .then(res => {
         setPoinData(res.data[`${poinMapel}`]);
       })
@@ -63,7 +59,7 @@ const MapelGradeScreen = () => {
   const getScores = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/${nilaiMapel}/list/${semester}/${transformedYear}`,
+        `https://lpa-tktoanhwa-api.loca.lt/${nilaiMapel}/list/${semester}/${transformedYear}`,
       )
       .then(res => {
         const scores = res.data[`${nilaiMapel}`];
@@ -177,7 +173,7 @@ const MapelGradeScreen = () => {
 
       savePromises.push(
         axios.post(
-          `https://modern-popular-coral.ngrok-free.app/${nilaiMapel}/createorupdate`,
+          `https://lpa-tktoanhwa-api.loca.lt/${nilaiMapel}/createorupdate`,
           studentScoresToSave,
         ),
       );

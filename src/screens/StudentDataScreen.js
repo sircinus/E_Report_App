@@ -17,7 +17,7 @@ const StudentDataScreen = ({route}) => {
   const fetchStudents = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/${gradeText}/list/${transformedYear}`,
+        `https://lpa-tktoanhwa-api.loca.lt/${gradeText}/list/${transformedYear}`,
       )
       .then(res => {
         let studentsData;

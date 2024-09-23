@@ -17,7 +17,7 @@ const EnglishScreen = () => {
 
   const handleGetData = () => {
     axios
-      .get('https://modern-popular-coral.ngrok-free.app/poinENG/list')
+      .get('https://lpa-tktoanhwa-api.loca.lt/poinENG/list')
       .then(response => {
         setData(response.data.poinENG);
         console.log(response.data.poinENG);
@@ -42,7 +42,7 @@ const EnglishScreen = () => {
   const handleUpdate = item => {
     axios
       .put(
-        `https://modern-popular-coral.ngrok-free.app/poinENG/update/${item.kodePoin}`,
+        `https://lpa-tktoanhwa-api.loca.lt/poinENG/update/${item.kodePoin}`,
         {
           namaPoin: item.namaPoin,
           keteranganPoin: item.keteranganPoin,

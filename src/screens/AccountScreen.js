@@ -68,7 +68,7 @@ const AccountScreen = ({route}) => {
 
       // Make the request to verify the old password and update to the new one
       const response = await axios.put(
-        'https://modern-popular-coral.ngrok-free.app/users/updateTeacherPassword',
+        'https://lpa-tktoanhwa-api.loca.lt/users/updateTeacherPassword',
         {
           userID: storedUserID,
           password: password, // Use the current password inputted by the user

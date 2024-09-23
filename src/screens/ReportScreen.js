@@ -59,7 +59,7 @@ const ReportScreen = () => {
   const fetchStudentName = () => {
     axios
       .get(
-        `https://modern-popular-coral.ngrok-free.app/room/list/${classRoom}/students/${transformedYear}`,
+        `https://lpa-tktoanhwa-api.loca.lt/room/list/${classRoom}/students/${transformedYear}`,
       )
       .then(res => {
         let studentsData;

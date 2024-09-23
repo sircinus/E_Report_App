@@ -43,16 +43,13 @@ const TeacherDetailScreen = ({route}) => {
       ToastAndroid.show('Please fill in necessary fields', ToastAndroid.SHORT);
     } else {
       axios
-        .put(
-          'https://modern-popular-coral.ngrok-free.app/users/updateTeacherDetail',
-          {
-            userID,
-            name,
-            role,
-            NRGTY,
-            grade,
-          },
-        )
+        .put('https://lpa-tktoanhwa-api.loca.lt/users/updateTeacherDetail', {
+          userID,
+          name,
+          role,
+          NRGTY,
+          grade,
+        })
         .then(res => {
           console.log(res.data);
           ToastAndroid.show('Account Updated Successfully', ToastAndroid.SHORT);
@@ -74,12 +71,9 @@ const TeacherDetailScreen = ({route}) => {
           text: 'Delete',
           onPress: () => {
             axios
-              .delete(
-                'https://modern-popular-coral.ngrok-free.app/users/deleteTeacher',
-                {
-                  data: {userID},
-                },
-              )
+              .delete('https://lpa-tktoanhwa-api.loca.lt/users/deleteTeacher', {
+                data: {userID},
+              })
               .then(res => {
                 console.log(res.data.message);
                 ToastAndroid.show(
@@ -113,7 +107,7 @@ const TeacherDetailScreen = ({route}) => {
           onPress: newPassword => {
             axios
               .put(
-                'https://modern-popular-coral.ngrok-free.app/users/adminResetPassword',
+                'https://lpa-tktoanhwa-api.loca.lt/users/adminResetPassword',
                 {
                   userID,
                 },

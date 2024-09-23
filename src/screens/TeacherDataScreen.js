@@ -18,7 +18,7 @@ const TeacherDataScreen = () => {
 
   const fetchUsers = () => {
     axios
-      .get('https://modern-popular-coral.ngrok-free.app/users/list')
+      .get('https://lpa-tktoanhwa-api.loca.lt/users/list')
       .then(res => {
         const sortedTeachers = res.data.users.sort((a, b) => {
           const roleOrder = {

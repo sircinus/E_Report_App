@@ -49,7 +49,7 @@ const StudentDetailScreen = ({route}) => {
     }
 
     axios
-      .put(`https://modern-popular-coral.ngrok-free.app/${gradeText}/update`, {
+      .put(`https://lpa-tktoanhwa-api.loca.lt/${gradeText}/update`, {
         name,
         NIS,
         birthdate,
@@ -78,12 +78,9 @@ const StudentDetailScreen = ({route}) => {
           text: 'Delete',
           onPress: () => {
             axios
-              .delete(
-                `https://modern-popular-coral.ngrok-free.app/${gradeText}/delete`,
-                {
-                  data: {NIS},
-                },
-              )
+              .delete(`https://lpa-tktoanhwa-api.loca.lt/${gradeText}/delete`, {
+                data: {NIS},
+              })
               .then(res => {
                 ToastAndroid.show(
                   'Account Deleted Successfully',

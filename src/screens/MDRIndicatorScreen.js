@@ -17,7 +17,7 @@ const MandarinScreen = () => {
 
   const handleGetData = () => {
     axios
-      .get('https://modern-popular-coral.ngrok-free.app/poinMDR/list')
+      .get('https://lpa-tktoanhwa-api.loca.lt/poinMDR/list')
       .then(response => {
         setData(response.data.poinMDR);
         console.log(response.data.poinMDR);
@@ -42,7 +42,7 @@ const MandarinScreen = () => {
   const handleUpdate = item => {
     axios
       .put(
-        `https://modern-popular-coral.ngrok-free.app/poinMDR/update/${item.kodePoin}`,
+        `https://lpa-tktoanhwa-api.loca.lt/poinMDR/update/${item.kodePoin}`,
         {
           namaPoin: item.namaPoin,
           keteranganPoin: item.keteranganPoin,

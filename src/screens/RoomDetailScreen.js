@@ -7,7 +7,7 @@ import axios from 'axios';
 const RoomDetailScreen = ({route}) => {
   const handleUpdateRoom = () => {
     axios
-      .put('https://modern-popular-coral.ngrok-free.app/room/updateRoom', {
+      .put('https://lpa-tktoanhwa-api.loca.lt/room/updateRoom', {
         roomName: room,
         roomTeacher: selectedTeacher,
         status: selectedStatus,
@@ -34,7 +34,7 @@ const RoomDetailScreen = ({route}) => {
 
   useEffect(() => {
     axios
-      .get('https://modern-popular-coral.ngrok-free.app/users/teacherList')
+      .get('https://lpa-tktoanhwa-api.loca.lt/users/teacherList')
       .then(response => {
         const options = response.data.teacherNameData.map(item => ({
           key: item.name,

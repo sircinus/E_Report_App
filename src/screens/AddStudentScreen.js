@@ -55,10 +55,7 @@ const AddStudentScreen = () => {
     };
 
     axios
-      .post(
-        `https://modern-popular-coral.ngrok-free.app/${gradeText}/create`,
-        reqData,
-      )
+      .post(`https://lpa-tktoanhwa-api.loca.lt/${gradeText}/create`, reqData)
       .then(res => {
         ToastAndroid.show('Student added successfully', ToastAndroid.SHORT);
         navigation.goBack();
