@@ -11,21 +11,26 @@ const HomeScreen = props => {
   const role = props.route.params.role;
   const userID = props.route.params.userID;
 
-  const [classRoom, setClassRoom] = useState([]);
+  const [classRoom, setClassRoom] = useState('');
 
   const getClassRoom = () => {
     axios
       .get(`https://modern-popular-coral.ngrok-free.app/room/${userID}`)
       .then(response => {
-        const {data} = response;
+        // Since response.data is directly { roomName: "MANDARIN" }, no need for destructuring `data`
+        const roomName = response.data.roomName;
 
-        setClassRoom(data.room);
+        // Update the state with the room name
+        setClassRoom(roomName);
+      })
+      .catch(error => {
+        console.error('Error fetching the classroom', error);
       });
   };
 
   useEffect(() => {
     getClassRoom();
-  }, []);
+  }, []); // This runs when the component mounts
 
   return (
     <View style={styles.container}>
@@ -39,7 +44,11 @@ const HomeScreen = props => {
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() =>
-          navigation.navigate('YearScreen', {grade: 'B', gradeText: 'gradeB'})
+          navigation.navigate('YearScreen', {
+            screenName: 'StudentDataScreen',
+            grade: 'B',
+            gradeText: 'gradeB',
+          })
         }>
         <Text style={styles.buttonText}>Data Peserta Didik Kelompok B</Text>
         <FontAwesome name="user" style={styles.buttonIcon} color="black" />
@@ -47,7 +56,11 @@ const HomeScreen = props => {
       <TouchableOpacity
         style={styles.buttonContainer}
         onPress={() =>
-          navigation.navigate('YearScreen', {grade: 'A', gradeText: 'gradeA'})
+          navigation.navigate('YearScreen', {
+            screenName: 'StudentDataScreen',
+            grade: 'A',
+            gradeText: 'gradeA',
+          })
         }>
         <Text style={styles.buttonText}>Data Peserta Didik Kelompok A</Text>
         <FontAwesome name="user" style={styles.buttonIcon} color="black" />
