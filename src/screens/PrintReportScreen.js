@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Alert,
   ScrollView,
+  ToastAndroid,
 } from 'react-native';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {logoBase64} from '../assets/images/base64images';
@@ -41,7 +42,7 @@ const PrintReportScreen = () => {
         }
       },
       error => {
-        console.error(error);
+        ToastAndroid.show('Error Indikator Mandarin', ToastAndroid.SHORT);
       },
     );
   };
@@ -73,7 +74,7 @@ const PrintReportScreen = () => {
         }
       },
       error => {
-        console.error(error);
+        ToastAndroid.show('Error Indikator English', ToastAndroid.SHORT);
       },
     );
   };
@@ -101,7 +102,10 @@ const PrintReportScreen = () => {
         setDeskripsi(response.data.deskripsi);
       })
       .catch(error => {
-        console.error(error);
+        ToastAndroid.show(
+          'Belum Ada Deskripsi Perkembangan',
+          ToastAndroid.SHORT,
+        );
       });
   };
 
@@ -128,7 +132,7 @@ const PrintReportScreen = () => {
         setNilaiMDR(data); // Store the entire response in nilaiMDR as before
       })
       .catch(error => {
-        console.error('Belum Ada Nilai Bahasa Mandarin');
+        ToastAndroid.show('Belum Ada Nilai Mandarin', ToastAndroid.SHORT);
       });
   };
 
@@ -152,7 +156,7 @@ const PrintReportScreen = () => {
         }
       })
       .catch(error => {
-        console.error('Belum Ada Nilai Bahasa Inggris');
+        ToastAndroid.show('Belum Ada Nilai English', ToastAndroid.SHORT);
       });
   };
 
@@ -164,7 +168,10 @@ const PrintReportScreen = () => {
         setPrincipalNRGTY(response.data.principalNameData.NRGTY);
       })
       .catch(error => {
-        console.error(error);
+        ToastAndroid.show(
+          'Tidak Tersedia Nama Kepala Sekolah',
+          ToastAndroid.SHORT,
+        );
       });
   };
 
@@ -176,7 +183,7 @@ const PrintReportScreen = () => {
         setTeacherNRGTY(response.data.NRGTY);
       })
       .catch(error => {
-        console.error(error);
+        ToastAndroid.show('Tidak Tersedia Nama Guru Kelas', ToastAndroid.SHORT);
       });
   };
 
@@ -975,16 +982,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#008000',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
-    marginHorizontal: 50,
     marginVertical: 10,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 18,
+    color: '#f2bf52',
+    fontSize: 20,
   },
 });
 

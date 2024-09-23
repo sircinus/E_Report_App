@@ -15,7 +15,9 @@ const HomeScreen = props => {
 
   const getClassRoom = () => {
     axios
-      .get(`https://modern-popular-coral.ngrok-free.app/room/${userID}`)
+      .get(
+        `https://modern-popular-coral.ngrok-free.app/room/cariKelas/${userID}`,
+      )
       .then(response => {
         // Since response.data is directly { roomName: "MANDARIN" }, no need for destructuring `data`
         const roomName = response.data.roomName;

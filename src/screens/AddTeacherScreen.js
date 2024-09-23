@@ -71,6 +71,7 @@ const AddTeacherScreen = () => {
         <Dropdown
           placeholderStyle={styles.placeholderStyle}
           selectedTextStyle={styles.selectedTextStyle}
+          itemTextStyle={styles.itemTextStyle}
           data={roles}
           labelField="label"
           valueField="value"
@@ -151,6 +152,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   selectedTextStyle: {
+    fontSize: 16,
+    fontFamily: 'Montserrat-Regular',
+    color: 'black',
+  },
+  itemTextStyle: {
     fontSize: 16,
     fontFamily: 'Montserrat-Regular',
     color: 'black',
