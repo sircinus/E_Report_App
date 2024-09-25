@@ -12,6 +12,7 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {logoBase64} from '../assets/images/base64images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
+import RNFetchBlob from 'rn-fetch-blob';
 import DatePicker from 'react-native-date-picker';
 
 const PrintReportScreen = () => {
@@ -911,7 +912,18 @@ const PrintReportScreen = () => {
       };
 
       const file = await RNHTMLtoPDF.convert(options);
+      const filePath = file.filePath;
 
+      // Now open the PDF using RNFetchBlob
+      RNFetchBlob.android
+        .actionViewIntent(filePath, 'application/pdf')
+        .then(() => {
+          console.log('PDF opened successfully');
+        })
+        .catch(error => {
+          console.error('Failed to open PDF', error);
+          Alert.alert('Error', 'Unable to open PDF');
+        });
       Alert.alert('PDF Generated', `PDF saved at: ${file.filePath}`);
     } catch (error) {
       Alert.alert('Error', 'Failed to generate PDF');
