@@ -12,8 +12,9 @@ import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import {logoBase64} from '../assets/images/base64images';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import axios from 'axios';
-import RNFetchBlob from 'rn-fetch-blob';
+import RNFS from 'react-native-fs';
 import DatePicker from 'react-native-date-picker';
+import FileViewer from 'react-native-file-viewer';
 
 const PrintReportScreen = () => {
   const handlePoinMDR = () => {
@@ -143,7 +144,7 @@ const PrintReportScreen = () => {
         `https://lpa-tktoanhwa-api.loca.lt/nilaiENG/list/${semester}/${transformedYear}/${student.NIS}`,
       )
       .then(response => {
-        setNilaiENG(response.data.nilaiENG);
+        const data = response.data.nilaiENG;
 
         if (data.length > 0) {
           const firstRecord = data[0];
@@ -155,6 +156,8 @@ const PrintReportScreen = () => {
           setNilaiENG4(firstRecord.nilai4);
           setNilaiENG5(firstRecord.nilai5);
         }
+
+        setNilaiENG(data);
       })
       .catch(error => {
         ToastAndroid.show('Belum Ada Nilai English', ToastAndroid.SHORT);
@@ -259,6 +262,12 @@ const PrintReportScreen = () => {
   const [ketPoinENG3, setKetPoinENG3] = useState('');
   const [ketPoinENG4, setKetPoinENG4] = useState('');
   const [ketPoinENG5, setKetPoinENG5] = useState('');
+
+  const textAgamaFormatted = deskripsi.textAgama?.replace(/\n/g, '<br>') || '';
+  const textJatiDiriFormatted =
+    deskripsi.textJatiDiri?.replace(/\n/g, '<br>') || '';
+  const textLiterasiFormatted =
+    deskripsi.textLiterasi?.replace(/\n/g, '<br>') || '';
 
   // Function to generate PDF
   const createPDF = async () => {
@@ -671,7 +680,7 @@ const PrintReportScreen = () => {
         </div>
         <div class="descriptionBox">
             <div>
-                <p class="descriptionTitle">DOKUMENTASI FOTO BERSERI</p>
+                <p class="descriptionTitle">DOKUMENTASI FOTO DESKRIPSI</p>
             </div>
         </div>
         <div class="allPhotoContainer">
@@ -694,7 +703,7 @@ const PrintReportScreen = () => {
             </div>
         </div>
         <div class="namContainer">
-            <p class="descriptionText">${deskripsi.textAgama}</p>
+            <p class="descriptionText">${textAgamaFormatted}</p>
 
         </div>
     </div>
@@ -718,7 +727,7 @@ const PrintReportScreen = () => {
         </div>
         <div class="jdContainer">
             <p class="descriptionText">
-            ${deskripsi.textJatiDiri}
+            ${textJatiDiriFormatted}
             </p>
         </div>
         <div class="descriptionBox3">
@@ -727,7 +736,7 @@ const PrintReportScreen = () => {
             </div>
         </div>
         <div class="steamContainer">
-<p class="descriptionText">${deskripsi.textLiterasi}</p>
+<p class="descriptionText">${textLiterasiFormatted}</p>
         </div>
     </div>
 
@@ -904,30 +913,62 @@ const PrintReportScreen = () => {
 </html>
     `;
 
+    // try {
+    //   const options = {
+    //     html: htmlContent, // Your HTML content
+    //     fileName: `${student.name}`, // File name
+    //     directory: 'Documents', // Folder where the PDF will be saved
+    //   };
+
+    //   const file = await RNHTMLtoPDF.convert(options);
+    //   const filePath = file.filePath;
+
+    //   // Now open the PDF using RNFetchBlob
+    //   RNFetchBlob.android
+    //     .actionViewIntent(filePath, 'application/pdf')
+    //     .then(() => {
+    //       console.log('PDF opened successfully');
+    //     })
+    //     .catch(error => {
+    //       console.error('Failed to open PDF', error);
+    //       Alert.alert('Error', 'Unable to open PDF');
+    //     });
+    //   Alert.alert('PDF Generated', `PDF saved at: ${file.filePath}`);
+    // } catch (error) {
+    //   Alert.alert('Error', 'Failed to generate PDF');
+    //   console.error(error);
+    // }
+
     try {
+      // Set up options for creating the PDF
       const options = {
-        html: htmlContent, // Your HTML content
-        fileName: `${student.name}`, // File name
-        directory: 'Documents', // Folder where the PDF will be saved
+        html: htmlContent, // HTML content to convert to PDF
+        fileName: `${student.name}`, // Name of the PDF file
+        directory: 'Documents', // Directory where the PDF will be saved
       };
 
+      // Create the PDF
       const file = await RNHTMLtoPDF.convert(options);
       const filePath = file.filePath;
 
-      // Now open the PDF using RNFetchBlob
-      RNFetchBlob.android
-        .actionViewIntent(filePath, 'application/pdf')
-        .then(() => {
-          console.log('PDF opened successfully');
-        })
-        .catch(error => {
-          console.error('Failed to open PDF', error);
-          Alert.alert('Error', 'Unable to open PDF');
-        });
-      Alert.alert('PDF Generated', `PDF saved at: ${file.filePath}`);
+      console.log('PDF file created at:', filePath); // Log the file path for debugging
+
+      // Check if the file exists
+      const fileExists = await RNFS.exists(filePath);
+      console.log('File exists:', fileExists);
+
+      if (fileExists) {
+        // Open the PDF file using FileViewer
+        await FileViewer.open(filePath);
+        console.log('PDF opened successfully');
+      } else {
+        console.error('PDF file does not exist:', filePath);
+        Alert.alert('Error: PDF file does not exist');
+      }
     } catch (error) {
-      Alert.alert('Error', 'Failed to generate PDF');
-      console.error(error);
+      // Handle any errors that occur during PDF creation or opening
+      console.error('Error creating or opening PDF:', error);
+      Alert.alert('Error: ' + error.message); // Show error to the user
     }
   };
 
@@ -939,7 +980,7 @@ const PrintReportScreen = () => {
           open={open}
           date={date}
           mode="date"
-          title="Pilih Tanggal Lahir"
+          title="Pilih Tanggal Pembagian Laporan"
           onConfirm={date => {
             setOpen(false);
             setDate(date);
@@ -1003,6 +1044,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#f2bf52',
     fontSize: 20,
+    fontFamily: 'Montserrat-SemiBold',
   },
 });
 

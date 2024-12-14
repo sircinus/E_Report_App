@@ -140,6 +140,12 @@ const DescInputScreen = () => {
     );
   }
 
+  const handleKeyPress = e => {
+    if (e.nativeEvent.key === 'Enter') {
+      // Handle Enter key if needed
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -149,7 +155,7 @@ const DescInputScreen = () => {
         <Text style={styles.nameText}>{student.name}</Text>
 
         {/* Image upload section */}
-        <Text style={styles.subText}>Foto Berseri:</Text>
+        <Text style={styles.subText}>Foto Deskripsi:</Text>
         <View style={styles.imageContainer}>
           <TouchableOpacity
             onPress={() => pickImage(setImage1)}
@@ -192,7 +198,7 @@ const DescInputScreen = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.clearButton} onPress={clearImages}>
-          <Text style={styles.clearButtonText}>Hapus Foto Berseri</Text>
+          <Text style={styles.clearButtonText}>Hapus Foto Deskripsi</Text>
         </TouchableOpacity>
 
         <Text style={styles.subText}>Capaian Pembelajaran:</Text>
@@ -205,6 +211,7 @@ const DescInputScreen = () => {
           placeholderTextColor={'#ddd'}
           value={textAgama}
           onChangeText={setTextAgama}
+          onKeyPress={handleKeyPress}
         />
 
         <Text style={styles.subText}>2. Jati Diri: </Text>
@@ -215,6 +222,7 @@ const DescInputScreen = () => {
           placeholderTextColor={'#ddd'}
           value={textJatiDiri}
           onChangeText={setTextJatiDiri}
+          onKeyPress={handleKeyPress}
         />
 
         <Text style={styles.subText}>
@@ -228,6 +236,7 @@ const DescInputScreen = () => {
           placeholderTextColor={'#ddd'}
           value={textLiterasi}
           onChangeText={setTextLiterasi}
+          onKeyPress={handleKeyPress}
         />
 
         <View style={styles.hwContainer}>
@@ -237,9 +246,11 @@ const DescInputScreen = () => {
               <TextInput
                 style={styles.inputHW}
                 placeholder="BB"
-                keyboardType="numeric"
+                keyboardType="decimal-pad" // Use decimal-pad instead of numeric
                 placeholderTextColor={'#ddd'}
-                onChangeText={text => setWeight(Number(text))}
+                onChangeText={text =>
+                  setWeight(parseFloat(text.replace(',', '.')))
+                } // Replace comma with dot
                 value={String(weight)}
               />
               <Text style={styles.unitText}>Kg</Text>
@@ -252,8 +263,10 @@ const DescInputScreen = () => {
                 style={styles.inputHW}
                 placeholder="TB"
                 placeholderTextColor={'#ddd'}
-                keyboardType="numeric"
-                onChangeText={text => setHeight(Number(text))}
+                keyboardType="decimal-pad" // Use decimal-pad for height too
+                onChangeText={text =>
+                  setHeight(parseFloat(text.replace(',', '.')))
+                } // Replace comma with dot
                 value={String(height)}
               />
               <Text style={styles.unitText}>Cm</Text>
