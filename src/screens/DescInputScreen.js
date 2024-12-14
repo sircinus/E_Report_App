@@ -246,12 +246,10 @@ const DescInputScreen = () => {
               <TextInput
                 style={styles.inputHW}
                 placeholder="BB"
-                keyboardType="decimal-pad" // Use decimal-pad instead of numeric
+                keyboardType="decimal-pad" // Still use decimal-pad
                 placeholderTextColor={'#ddd'}
-                onChangeText={text =>
-                  setWeight(parseFloat(text.replace(',', '.')))
-                } // Replace comma with dot
-                value={String(weight)}
+                onChangeText={text => setWeight(text)} // Directly store the text without parsing
+                value={weight} // Value as a string
               />
               <Text style={styles.unitText}>Kg</Text>
             </View>
@@ -263,11 +261,9 @@ const DescInputScreen = () => {
                 style={styles.inputHW}
                 placeholder="TB"
                 placeholderTextColor={'#ddd'}
-                keyboardType="decimal-pad" // Use decimal-pad for height too
-                onChangeText={text =>
-                  setHeight(parseFloat(text.replace(',', '.')))
-                } // Replace comma with dot
-                value={String(height)}
+                keyboardType="decimal-pad" // Use decimal-pad for height
+                onChangeText={text => setHeight(text)} // Directly store the text without parsing
+                value={height} // Value as a string
               />
               <Text style={styles.unitText}>Cm</Text>
             </View>
