@@ -10,11 +10,10 @@ import {
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
 
 const DescInputScreen = () => {
-  const navigation = useNavigation();
   const route = useRoute();
   const {student, transformedYear, year, semester} = route.params;
 
@@ -374,6 +373,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontFamily: 'Montserrat-Regular',
     color: 'black',
+    textAlign: 'justify',
   },
   hwContainer: {
     flexDirection: 'row',
@@ -405,6 +405,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     flex: 1,
     padding: 5,
+    color: 'black',
   },
   inputSIA: {
     backgroundColor: 'white',

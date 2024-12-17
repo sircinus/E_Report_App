@@ -8,11 +8,9 @@ import {
   ToastAndroid,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
 const EnglishScreen = () => {
-  const navigation = useNavigation();
   const [data, setData] = useState([]);
 
   const handleGetData = () => {

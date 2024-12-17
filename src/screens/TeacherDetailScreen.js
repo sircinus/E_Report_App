@@ -12,7 +12,6 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {Dropdown} from 'react-native-element-dropdown';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const TeacherDetailScreen = ({route}) => {

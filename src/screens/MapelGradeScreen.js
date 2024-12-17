@@ -1,12 +1,11 @@
 import {View, Text, ScrollView, StyleSheet, ToastAndroid} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import axios from 'axios';
 import {SelectList} from 'react-native-dropdown-select-list';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const MapelGradeScreen = () => {
-  const navigation = useNavigation();
   const route = useRoute();
   const {mapel, transformedYear, semester, year} = route.params;
 

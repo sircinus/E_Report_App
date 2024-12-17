@@ -1,7 +1,6 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 

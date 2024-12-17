@@ -9,7 +9,6 @@ import {
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import {Dropdown} from 'react-native-element-dropdown';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 

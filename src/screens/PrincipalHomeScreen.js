@@ -3,7 +3,6 @@ import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = props => {
   const navigation = useNavigation();

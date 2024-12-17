@@ -913,32 +913,6 @@ const PrintReportScreen = () => {
 </html>
     `;
 
-    // try {
-    //   const options = {
-    //     html: htmlContent, // Your HTML content
-    //     fileName: `${student.name}`, // File name
-    //     directory: 'Documents', // Folder where the PDF will be saved
-    //   };
-
-    //   const file = await RNHTMLtoPDF.convert(options);
-    //   const filePath = file.filePath;
-
-    //   // Now open the PDF using RNFetchBlob
-    //   RNFetchBlob.android
-    //     .actionViewIntent(filePath, 'application/pdf')
-    //     .then(() => {
-    //       console.log('PDF opened successfully');
-    //     })
-    //     .catch(error => {
-    //       console.error('Failed to open PDF', error);
-    //       Alert.alert('Error', 'Unable to open PDF');
-    //     });
-    //   Alert.alert('PDF Generated', `PDF saved at: ${file.filePath}`);
-    // } catch (error) {
-    //   Alert.alert('Error', 'Failed to generate PDF');
-    //   console.error(error);
-    // }
-
     try {
       // Set up options for creating the PDF
       const options = {
@@ -1008,6 +982,28 @@ const PrintReportScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={createPDF}>
           <Text style={styles.buttonText}>Cetak Laporan PDF</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={handleGetDeskripsi}>
+          <Text style={styles.buttonText}>Refresh Deskripsi</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleNilaiMDR}>
+          <Text style={styles.buttonText}>Refresh Nilai MDR</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handlePoinMDR}>
+          <Text style={styles.buttonText}>Refresh Poin MDR</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleNilaiENG}>
+          <Text style={styles.buttonText}>Refresh Nilai English</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handlePoinENG}>
+          <Text style={styles.buttonText}>Refresh Poin English</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handlePrincipalName}>
+          <Text style={styles.buttonText}>Refresh Nama Kepala Sekolah</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleTeacherName}>
+          <Text style={styles.buttonText}>Refresh Nama Guru Kelas</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
