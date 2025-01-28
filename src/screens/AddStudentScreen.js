@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fefce5',
-    margin: 10,
+    padding: 10,
   },
   subText: {
     fontFamily: 'Montserrat-SemiBold',
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     marginVertical: 10,
     padding: 10,
+    color: 'black',
   },
   dropdown: {
     backgroundColor: 'white',

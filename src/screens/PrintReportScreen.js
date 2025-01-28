@@ -15,6 +15,7 @@ import axios from 'axios';
 import RNFS from 'react-native-fs';
 import DatePicker from 'react-native-date-picker';
 import FileViewer from 'react-native-file-viewer';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const PrintReportScreen = () => {
   const handlePoinMDR = () => {
@@ -42,7 +43,12 @@ const PrintReportScreen = () => {
           setPoinMDR5(poinData[4].namaPoin);
           setKetPoinMDR5(poinData[4].keteranganPoin);
         }
+        ToastAndroid.show(
+          'Indikator Bahasa Mandarin Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       },
+
       error => {
         ToastAndroid.show('Error Indikator Mandarin', ToastAndroid.SHORT);
       },
@@ -74,6 +80,10 @@ const PrintReportScreen = () => {
           setPoinENG5(poinData[4].namaPoin);
           setKetPoinENG5(poinData[4].keteranganPoin);
         }
+        ToastAndroid.show(
+          'Indikator Bahasa Inggris Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       },
       error => {
         ToastAndroid.show('Error Indikator English', ToastAndroid.SHORT);
@@ -102,6 +112,10 @@ const PrintReportScreen = () => {
       )
       .then(response => {
         setDeskripsi(response.data.deskripsi);
+        ToastAndroid.show(
+          'Deskripsi Perkembangan Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       })
       .catch(error => {
         ToastAndroid.show(
@@ -131,7 +145,11 @@ const PrintReportScreen = () => {
           setNilaiMDR5(firstRecord.nilai5);
         }
 
-        setNilaiMDR(data); // Store the entire response in nilaiMDR as before
+        setNilaiMDR(data);
+        ToastAndroid.show(
+          'Nilai Bahasa Mandarin Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        ); // Store the entire response in nilaiMDR as before
       })
       .catch(error => {
         ToastAndroid.show('Belum Ada Nilai Mandarin', ToastAndroid.SHORT);
@@ -158,10 +176,19 @@ const PrintReportScreen = () => {
         }
 
         setNilaiENG(data);
+        ToastAndroid.show(
+          'Nilai Bahasa Inggris Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       })
       .catch(error => {
         ToastAndroid.show('Belum Ada Nilai English', ToastAndroid.SHORT);
       });
+  };
+
+  const handleName = () => {
+    handleTeacherName();
+    handlePrincipalName();
   };
 
   const handlePrincipalName = () => {
@@ -170,6 +197,10 @@ const PrintReportScreen = () => {
       .then(response => {
         setPrincipalName(response.data.principalNameData.name);
         setPrincipalNRGTY(response.data.principalNameData.NRGTY);
+        ToastAndroid.show(
+          'Nama Kepala Sekolah Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       })
       .catch(error => {
         ToastAndroid.show(
@@ -185,6 +216,10 @@ const PrintReportScreen = () => {
       .then(response => {
         setTeacherName(response.data.teacherName);
         setTeacherNRGTY(response.data.NRGTY);
+        ToastAndroid.show(
+          'Nama Guru Kelas Berhasil Dimuat Ulang',
+          ToastAndroid.SHORT,
+        );
       })
       .catch(error => {
         ToastAndroid.show('Tidak Tersedia Nama Guru Kelas', ToastAndroid.SHORT);
@@ -197,8 +232,7 @@ const PrintReportScreen = () => {
     handleNilaiENG();
     handlePoinMDR();
     handlePoinENG();
-    handlePrincipalName();
-    handleTeacherName();
+    handleName();
   }, []);
 
   const navigation = useNavigation();
@@ -964,46 +998,69 @@ const PrintReportScreen = () => {
           }}
         />
         <View style={styles.textContainer}>
-          <Text style={styles.text}>
-            Tahun Pelajaran: {year} | Semester: {semester}
-          </Text>
-          <Text style={styles.text}>NIS: {student.NIS}</Text>
+          <Text style={styles.text}>Tahun Pelajaran: {year}</Text>
+          <Text style={styles.text}>Semester: {semester}</Text>
           <Text style={styles.text}>Nama: {student.name}</Text>
-          <Text style={styles.text}>
-            Tanggal Pembagian LPA: {formattedDate}
-          </Text>
+          <Text style={styles.text}>NIS: {student.NIS}</Text>
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => setOpen(true)} // Set open to true to show the date picker
-        >
-          <Text style={styles.buttonText}>Pilih Tanggal</Text>
-        </TouchableOpacity>
+        <View style={styles.flexContainer}>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>
+              Pilih Tanggal Cetak LPA: {formattedDate}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.pickDateButton}
+            onPress={() => setOpen(true)} // Set open to true to show the date picker
+          >
+            <Icon name="calendar" size={28} color="#008000" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.flexButtonContainer}>
+          <TouchableOpacity
+            style={
+              !deskripsi.textAgama ? styles.refreshButton : styles.fetchedButton
+            }
+            onPress={handleGetDeskripsi}>
+            <Text style={styles.refreshText}>Deskripsi Perkembangan Anak</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={
+              !principalName || !teacherName
+                ? styles.refreshButton
+                : styles.fetchedButton
+            }
+            onPress={handlePrincipalName}>
+            <Text style={styles.refreshText}>
+              Nama Kepala Sekolah & Guru Kelas
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={!poinMDR1 ? styles.refreshButton : styles.fetchedButton}
+            onPress={handlePoinMDR}>
+            <Text style={styles.refreshText}>Indikator Bahasa Mandarin</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={!poinENG1 ? styles.refreshButton : styles.fetchedButton}
+            onPress={handlePoinENG}>
+            <Text style={styles.refreshText}>Indikator Bahasa English</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={!nilaiMDR1 ? styles.refreshButton : styles.fetchedButton}
+            onPress={handleNilaiMDR}>
+            <Text style={styles.refreshText}>Nilai Bahasa Mandarin</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={!nilaiENG1 ? styles.refreshButton : styles.fetchedButton}
+            onPress={handleNilaiENG}>
+            <Text style={styles.refreshText}>Nilai Bahasa English</Text>
+          </TouchableOpacity>
+        </View>
+
         <TouchableOpacity style={styles.button} onPress={createPDF}>
           <Text style={styles.buttonText}>Cetak Laporan PDF</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={handleGetDeskripsi}>
-          <Text style={styles.buttonText}>Refresh Deskripsi</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleNilaiMDR}>
-          <Text style={styles.buttonText}>Refresh Nilai MDR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handlePoinMDR}>
-          <Text style={styles.buttonText}>Refresh Poin MDR</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleNilaiENG}>
-          <Text style={styles.buttonText}>Refresh Nilai English</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handlePoinENG}>
-          <Text style={styles.buttonText}>Refresh Poin English</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handlePrincipalName}>
-          <Text style={styles.buttonText}>Refresh Nama Kepala Sekolah</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleTeacherName}>
-          <Text style={styles.buttonText}>Refresh Nama Guru Kelas</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
@@ -1018,14 +1075,25 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    marginVertical: 5,
     color: 'black',
     fontFamily: 'Montserrat-Bold',
-    textAlign: 'center',
+    textAlign: 'left',
+  },
+  textSub: {
+    fontSize: 14,
+    color: 'black',
+    fontFamily: 'Montserrat-Regular',
+    textAlign: 'left',
+  },
+  flexContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   textContainer: {
-    alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#ffffff',
+    borderColor: '#008000',
+    borderWidth: 2,
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
@@ -1041,6 +1109,43 @@ const styles = StyleSheet.create({
     color: '#f2bf52',
     fontSize: 20,
     fontFamily: 'Montserrat-SemiBold',
+  },
+  refreshButton: {
+    backgroundColor: '#eb1420',
+    width: '45%',
+    borderRadius: 5,
+    marginVertical: 5,
+    padding: 5,
+    alignItems: 'center',
+  },
+  fetchedButton: {
+    backgroundColor: 'limegreen',
+    width: '45%',
+    borderRadius: 5,
+    marginVertical: 5,
+    padding: 5,
+    alignItems: 'center',
+  },
+  pickDateButton: {
+    backgroundColor: '#f2bf52',
+    borderRadius: 5,
+    marginHorizontal: 5,
+    alignItems: 'center',
+    padding: 8,
+    marginBottom: 10,
+  },
+  refreshText: {
+    color: '#000',
+    fontSize: 14,
+    padding: 5,
+    fontFamily: 'Montserrat-SemiBold',
+    textAlign: 'center',
+  },
+  flexButtonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    marginVertical: 10,
   },
 });
 

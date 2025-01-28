@@ -12,6 +12,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useRoute} from '@react-navigation/native';
 import ImagePicker from 'react-native-image-crop-picker';
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 
 const DescInputScreen = () => {
   const route = useRoute();
@@ -77,19 +78,39 @@ const DescInputScreen = () => {
 
   const pickImage = async setImage => {
     try {
+      // Open the image picker with cropping enabled and Base64 data included
       const image = await ImagePicker.openPicker({
         width: 450,
         height: 800,
         cropping: true,
-        includeBase64: true,
+        // includeBase64: true, //Send Base64 ke Database
       });
-      setImage(`data:${image.mime};base64,${image.data}`);
+
+      // Resize the image after it is picked
+      const resizedImage = await ImageResizer.createResizedImage(
+        image.path, // Path Local
+        1200, // Width
+        1600, // Height
+        'JPEG',
+        100, // Quality (0-100)
+        0, // Rotation (0 degrees)
+        null, // Output path (null means use a temporary file)
+      );
+
+      console.log('Resized Image:', resizedImage);
+
+      // Use the resized image URI for displaying the image
+      const resizedUri = resizedImage.uri;
+      setImage(resizedUri);
     } catch (error) {
       if (error.message.includes('User cancelled image selection')) {
         console.log('Image selection was canceled.');
       } else {
-        console.error('Error picking image: ', error);
-        Alert.alert('Error', 'There was a problem picking the image.');
+        console.error('Error picking or resizing image: ', error);
+        Alert.alert(
+          'Error',
+          'There was a problem picking or resizing the image.',
+        );
       }
     }
   };
