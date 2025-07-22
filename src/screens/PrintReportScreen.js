@@ -489,7 +489,7 @@ const PrintReportScreen = () => {
             margin-top: 5px;
             margin-left: 10px;
             margin-right: 10px;
-            font-size: 16px;
+            font-size: 14px;
             text-align: justify;
             line-height:  1.5;
         }
